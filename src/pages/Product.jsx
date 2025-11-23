@@ -3,6 +3,7 @@ import axios from 'axios';
 
 function Product() {
   const [products, setProducts] = useState([]);
+  const [showCart, setShowCart] = useState(false); 
 
   useEffect(() => {
     axios.get('http://localhost:8080/product/getAll')
@@ -12,6 +13,15 @@ function Product() {
 
   return (
     <div className="container mt-4">
+      
+      <button 
+        className="btn btn-secondary mb-3"
+        onClick={() => setShowCart(!showCart)}
+      >
+         View Cart
+      </button>
+
+      
       <div className="row">
         {products.map(product => (
           <div key={product.id} className="col-md-4 mb-4">
@@ -21,7 +31,7 @@ function Product() {
               </div>
               <div className="card-body">
                 <p className="card-text">{product.description}</p>
-                <p className="card-text">Price: RS. {}</p>
+                <p className="card-text">Price: RS. {product.price}</p>
                 <p className="card-text">Quantity: {product.qtyOnHand}</p>
                 <button className="btn btn-primary w-100">Add to Cart</button>
               </div>
